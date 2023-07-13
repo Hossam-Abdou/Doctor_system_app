@@ -18,13 +18,10 @@ class DioHelper {
     Map<String,dynamic> ?query,
   })
   async {
+
     return await dio!.get(url,queryParameters:query );
+
   }
-
-
-
-
-
   static Future<Response> postData({
     required String url,
     Map<String, dynamic>? query,
@@ -39,12 +36,6 @@ class DioHelper {
     };
     return dio!.post(url, queryParameters: query, data: data);
   }
-
-
-
-
-
-
     static Future<Response> putData({
       required String url,
       Map<String, dynamic>? query,
@@ -57,8 +48,6 @@ class DioHelper {
       };
       return dio!.post(url, queryParameters: query, data: data);
     }
-
-
 
 
   }

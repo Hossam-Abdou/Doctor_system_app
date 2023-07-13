@@ -6,23 +6,33 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+   LoginScreen({Key? key}) : super(key: key);
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
    return BlocConsumer <SystemCubit,SystemState>(
       listener: (context,state)
       {
-        if(state is DoctorAuthSuccess)
+
+      if(state is DoctorAuthSuccess)
         {
-          Navigator.push(context, MaterialPageRoute(
+          Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) => HomeScreen(),
           ));
-          print('congrats email is correct');
-        }else if(state is DoctorAuthError)
-        {
-          print('error');
-        }
+          const snackBar = SnackBar(
+            content: Text('Login Successfully'),
+            backgroundColor: Colors.green,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);        }
+      if(state is DoctorAuthError)
+      {
+        const snackBar = SnackBar(
+          content: Text('Password or Email is not correct'),
+          backgroundColor: Colors.red,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
         },
       builder: (context,state)
       {
@@ -32,58 +42,62 @@ class LoginScreen extends StatelessWidget {
               title: Text('Doctor App'),
             ),
             body:SingleChildScrollView(
-              child: Column(
-                children: [
-                  ClipRRect(borderRadius: BorderRadius.circular(25),
-                      child: Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeydRp2LsRCYcJQ9SqH4r6rKGN1JGsnB62Y-xjj791z-fMr9FCJmST47VNgC3NHK-kGyI&usqp=CAU')),
-                  CustomTextField(label: 'Email',
-                    controller: cubit.emailController,
-                  ),
-                  CustomTextField(label: 'Password',
-                    isPassword: true,
-                    controller: cubit.passwordController,
-                  ),
-
-
-                  if(state is DoctorAuthLoading)
-                    LinearProgressIndicator(),
-                  Material(
-                    color: Colors.tealAccent,
-                    borderRadius: BorderRadius.circular(50),
-                    child: InkWell(
-                      onTap: ()
-                      {
-                        cubit.Login();
-                      },
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    ClipRRect(borderRadius: BorderRadius.circular(20),
+                        child: Image.network('https://img.freepik.com/free-vector/thank-you-doctors-nurses_52683-36502.jpg')),
+                    CustomTextField(label: 'Email',
+                      controller: cubit.emailController,
+                    ),
+                    CustomTextField(label: 'Password',
+                      isPassword: true,
+                      controller: cubit.passwordController,
+                    ),
+                    if(state is DoctorAuthLoading)
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: LinearProgressIndicator(),
+                      ),
+                    Material(
+                      color: Colors.tealAccent,
                       borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        width: 200,
-                        height: 50,
-                        alignment: Alignment.center,
-                        child: Text('Login',),
+                      child: InkWell(
+                        onTap: ()
+                        {
+                          cubit.Login();
+                        },
+                        borderRadius: BorderRadius.circular(50),
+                        child: Container(
+                          width: 200,
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: Text('Login',),
+                        ),
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('Don\'t Have An Account'),
-                      TextButton(
-                          onPressed: ()
-                          {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) => RegisterScreen(),
-                            ));
-                          },
-                          child: const Text('Register Now')
-                      )
-                    ],
-                  )
-                  
-                  
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Don\'t Have An Account'),
+                        TextButton(
+                            onPressed: ()
+                            {
+                              Navigator.pushReplacement(context, MaterialPageRoute(
+                                builder: (context) => RegisterScreen(),
+                              ));
+                            },
+                            child: const Text('Register Now')
+                        )
+                      ],
+                    )
 
 
-                ],),
+
+
+                  ],),
+              ),
             )
         );
       },

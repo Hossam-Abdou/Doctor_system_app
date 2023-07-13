@@ -16,12 +16,21 @@ class RegisterScreen extends StatelessWidget {
       {
         if(state is DoctorAuthSuccess)
         {
-          Navigator.push(context, MaterialPageRoute(
+          Navigator.pushReplacement(context, MaterialPageRoute(
             builder: (context) => HomeScreen(),
-          ));
-        }else if(state is DoctorAuthError)
+          )); const snackBar = SnackBar(
+            content: Text('Registered Successfully'),
+            backgroundColor: Colors.green,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+        if(state is DoctorAuthError)
         {
-          print('error');
+          const snackBar = SnackBar(
+            content: Text('Error'),
+            backgroundColor: Colors.red,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       },
         builder: (context,state)
@@ -34,7 +43,9 @@ class RegisterScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4_k_z2pnLApOaDk1QRmizy1fIt_5PpU08UV91dZRrsMNxEhuIX-NfsJKnnuJP5nXn9v0&usqp=CAU'),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                    child: Image.network('https://img.freepik.com/free-vector/medical-video-call-consultation-illustration_88138-415.jpg',width: double.infinity,)),
 
                 CustomTextField(label: 'UserName',
                   controller: cubit.nameController,
@@ -81,7 +92,7 @@ class RegisterScreen extends StatelessWidget {
                     TextButton(
                         onPressed: ()
                         {
-                          Navigator.push(context, MaterialPageRoute(
+                          Navigator.pushReplacement(context, MaterialPageRoute(
                             builder: (context) => LoginScreen(),
                           ));
                         },

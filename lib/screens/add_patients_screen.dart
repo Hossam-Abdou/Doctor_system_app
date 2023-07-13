@@ -15,7 +15,7 @@ class AddPatients extends StatelessWidget {
       {
         if(state is DoctorAddPatientSuccess )
         {
-          Navigator.push(
+          Navigator.pushReplacement(
               context,
               MaterialPageRoute(
                 builder: (context) => HomeScreen(),
@@ -26,7 +26,10 @@ class AddPatients extends StatelessWidget {
         {
           var cubit=SystemCubit.get(context);
           return Scaffold(
-            appBar: AppBar(),
+            appBar: AppBar(
+              title: const Text('Add Patient'),
+              centerTitle: true,
+            ),
             body: SingleChildScrollView(
               child: SafeArea(
                 child: Column(
@@ -36,10 +39,10 @@ class AddPatients extends StatelessWidget {
                           vertical: 30
                       ),
                       child: Text('Patient registration'.toUpperCase(),
-                        style: TextStyle(
+                        style:const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 26,
-                            color: Colors.tealAccent
+                            color: Color(0xff1B6B93)
                         ),
                       ),
                     ),
@@ -63,19 +66,14 @@ class AddPatients extends StatelessWidget {
 
                     if(state is DoctorAddPatientLoading )
 
-                      LinearProgressIndicator(),
+                      const Padding(
+                        padding:  EdgeInsets.all(8.0),
+                        child: LinearProgressIndicator(),
+                      ),
                     GestureDetector(
                       onTap: ()
                       {
                         cubit.AddPatient();
-                        if(state is DoctorAddPatientSuccess )
-                        {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
-                              ));
-                        }
                       },
                       child: Material(
                         color: Colors.tealAccent,

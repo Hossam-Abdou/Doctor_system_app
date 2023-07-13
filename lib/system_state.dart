@@ -16,3 +16,7 @@ class DoctorGetAllPatientLoading extends SystemState {}
 class DoctorAddPatientSuccess  extends SystemState {}
 class DoctorAddPatientError extends SystemState {}
 class DoctorAddPatientLoading  extends SystemState {}
+
+class DoctorUpdatePatientSuccess  extends SystemState {}
+class DoctorUpdatePatientError extends SystemState {}
+class DoctorUpdatePatientLoading  extends SystemState {}
