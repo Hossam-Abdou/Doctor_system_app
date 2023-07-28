@@ -20,3 +20,7 @@ class DoctorAddPatientLoading  extends SystemState {}
 class DoctorUpdatePatientSuccess  extends SystemState {}
 class DoctorUpdatePatientError extends SystemState {}
 class DoctorUpdatePatientLoading  extends SystemState {}
+
+class DoctorDeletePatientError  extends SystemState {}
+class DoctorDeletePatientSuccess extends SystemState {}
+class DoctorDeletePatientLoading  extends SystemState {}

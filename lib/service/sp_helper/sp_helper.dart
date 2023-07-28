@@ -25,7 +25,7 @@ class SharedPrefrenceHelper {
   }
 
 
-  static Future<bool> removeData({required String key})
+  static dynamic removeData({required String key})
   async{
     return await sharedPreferences!.remove(key);
   }

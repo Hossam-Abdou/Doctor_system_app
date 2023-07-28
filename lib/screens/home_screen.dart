@@ -1,8 +1,9 @@
 import 'package:doctor_system/screens/patient_details_screen.dart';
-import 'package:doctor_system/system_cubit.dart';
+import 'package:doctor_system/blocs/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'add_patients_screen.dart';
+import 'login_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,7 +26,18 @@ class _HomeScreenState extends State<HomeScreen> {
           var cubit=SystemCubit.get(context);
           return Scaffold(
             appBar: AppBar(
-              title: const Text('patients'), ),
+              title: const Text('P a t i e n t s'),
+              centerTitle: true,
+              actions: [
+                IconButton(onPressed: ()
+                {
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  ));
+                  },
+                    icon: Icon(Icons.exit_to_app))
+              ],
+            ),
             body: cubit.getPatientModel==null?
             const Center(
                 child: CircularProgressIndicator())  :
@@ -50,13 +62,26 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       title: Text(cubit.getPatientModel!.data!.data![index].name!),
                       subtitle: Text(cubit.getPatientModel!.data!.data![index].diagnosis!),
-                      trailing: Text(cubit.getPatientModel!.data!.data![index].visitTime!),
+                      trailing:
+                          IconButton(
+                            onPressed: ()
+                          {
+                            cubit.deletePatient(cubit.getPatientModel!.data!.data![index].id!);
+                            Navigator.pushReplacement(context,MaterialPageRoute(
+                              builder: (context) => const HomeScreen(), ));
+                            print(cubit.getPatientModel!.data!.data![index].id!);
+                          },
+                              icon: Icon(Icons.delete_rounded,color: Colors.redAccent,),
+                          ),
                     ) ,
                   ),
                 ),
               ),
             ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
             floatingActionButton: FloatingActionButton(
+
+
               onPressed: ()
               {
                 Navigator.push(context,MaterialPageRoute(

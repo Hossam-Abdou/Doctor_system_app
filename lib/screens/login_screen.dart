@@ -1,19 +1,20 @@
 import 'package:doctor_system/components/custom_textfield.dart';
 import 'package:doctor_system/screens/home_screen.dart';
 import 'package:doctor_system/screens/register_screen.dart';
-import 'package:doctor_system/system_cubit.dart';
+import 'package:doctor_system/blocs/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../service/sp_helper/sp_helper.dart';
+import '../service/sp_helper/sp_keys.dart';
+
 class LoginScreen extends StatelessWidget {
    LoginScreen({Key? key}) : super(key: key);
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
    return BlocConsumer <SystemCubit,SystemState>(
-      listener: (context,state)
-      {
+      listener: (context,state) async{
 
       if(state is DoctorAuthSuccess)
         {
@@ -24,7 +25,8 @@ class LoginScreen extends StatelessWidget {
             content: Text('Login Successfully'),
             backgroundColor: Colors.green,
           );
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);        }
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
       if(state is DoctorAuthError)
       {
         const snackBar = SnackBar(
@@ -37,13 +39,20 @@ class LoginScreen extends StatelessWidget {
       builder: (context,state)
       {
         var cubit=SystemCubit.get(context);
-        return Scaffold(
-            appBar:AppBar(
-              title: Text('Doctor App'),
-            ),
-            body:SingleChildScrollView(
-              child: Form(
-                key: _formKey,
+        return Container(
+          decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topRight,
+            colors: [Colors.blueGrey, Colors.lightBlueAccent],
+          ),
+        ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+              appBar:AppBar(
+                title: Text('Doctor App'),
+              ),
+              body:SingleChildScrollView(
                 child: Column(
                   children: [
                     ClipRRect(borderRadius: BorderRadius.circular(20),
@@ -52,12 +61,11 @@ class LoginScreen extends StatelessWidget {
                       controller: cubit.emailController,
                     ),
                     CustomTextField(label: 'Password',
-                      isPassword: true,
                       controller: cubit.passwordController,
                     ),
                     if(state is DoctorAuthLoading)
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      const Padding(
+                        padding:  EdgeInsets.all(8.0),
                         child: LinearProgressIndicator(),
                       ),
                     Material(
@@ -80,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Don\'t Have An Account'),
+                        Text('Don\'t Have An Account',style: TextStyle(color: Colors.white),),
                         TextButton(
                             onPressed: ()
                             {
@@ -88,7 +96,7 @@ class LoginScreen extends StatelessWidget {
                                 builder: (context) => RegisterScreen(),
                               ));
                             },
-                            child: const Text('Register Now')
+                            child: const Text('Register Now',style: TextStyle(color: Colors.white),)
                         )
                       ],
                     )
@@ -97,8 +105,8 @@ class LoginScreen extends StatelessWidget {
 
 
                   ],),
-              ),
-            )
+              )
+          ),
         );
       },
     );

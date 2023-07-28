@@ -3,25 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/get_patient_model.dart';
-import '../system_cubit.dart';
+import '../blocs/system_cubit.dart';
 
 class PatientDetails extends StatelessWidget {
   final Patient patient;
 
-   PatientDetails({super.key, required this.patient});
+  PatientDetails({super.key, required this.patient});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SystemCubit,SystemState>(
-      listener: (context,state) {},
-        builder: (context,state)
-        {
+    return BlocProvider.value(
+      value: SystemCubit.get(context)..getOnePatient(patient),
+      child: BlocConsumer<SystemCubit, SystemState>(
+        listener: (context, state) {},
+        builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title:const  Text('P r o f i l e'),
+              title: const Text('P r o f i l e'),
             ),
-            body:  Padding(
+            body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,27 +34,25 @@ class PatientDetails extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CircleAvatar(
+                        const CircleAvatar(
                           radius: 40,
-                          backgroundColor: const Color(0xff764abc),
+                          backgroundColor: Color(0xff764abc),
                           backgroundImage: NetworkImage(
                               'https://static.vecteezy.com/system/resources/thumbnails/002/127/142/small/medicine-and-healthcare-concept-illustration-health-examination-patient-consultation-can-use-for-web-homepage-mobile-apps-web-banner-character-cartoon-illustration-flat-style-free-vector.jpg'),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(patient.name!,
+                            Text(
+                              patient.name!,
                               style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.white
-                              ),
+                                  fontSize: 24, color: Colors.white),
                             ),
                             const SizedBox(height: 8.0),
-                            Text(patient.diagnosis!,
+                            Text(
+                              patient.diagnosis!,
                               style: const TextStyle(
-                                fontSize: 18,
-                                  color: Colors.white
-                              ),
+                                  fontSize: 18, color: Colors.white),
                             ),
                           ],
                         ),
@@ -61,8 +60,8 @@ class PatientDetails extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-
-                  const Text('Date of Birth:',
+                  const Text(
+                    'Date of Birth:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
@@ -75,58 +74,64 @@ class PatientDetails extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  const Text('Address:',
+                  const Text(
+                    'Address:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                   ),
-                  Text(patient.address!,
+                  Text(
+                    patient.address!,
                     style: const TextStyle(
                       fontSize: 18,
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                 const Text(
+                  const Text(
                     'Visit Time:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
                   ),
-                  Text(patient.visitTime!,
+                  Text(
+                    patient.visitTime!,
                     style: const TextStyle(
                       fontSize: 18,
                     ),
                   ),
-
                   Material(
                     color: Colors.tealAccent,
                     borderRadius: BorderRadius.circular(45),
                     child: InkWell(
-                      onTap: ()
-                      {
-                        Navigator.push(context,
+                      onTap: () {
+                        Navigator.push(
+                            context,
                             MaterialPageRoute(
-                                builder:(context) => UpdatePatientScreen()
-                        ));
+                                builder: (context) =>
+                                    UpdatePatientScreen(
+                                      patientId: patient.id!,
+
+                                    )
+                            )
+                        );
                       },
                       borderRadius: BorderRadius.circular(50),
                       child: Container(
                         width: 160,
                         height: 50,
                         alignment: Alignment.center,
-                        child: Text('Update Patient'),
+                        child: const Text('Update Patient'),
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
           );
         },
-
+      ),
     );
   }
 }

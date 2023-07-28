@@ -1,6 +1,6 @@
 import 'package:doctor_system/model/get_patient_model.dart';
 import 'package:doctor_system/screens/home_screen.dart';
-import 'package:doctor_system/system_cubit.dart';
+import 'package:doctor_system/blocs/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,6 +8,10 @@ import '../components/custom_textfield.dart';
 
 class UpdatePatientScreen extends StatelessWidget {
 
+  final int patientId;
+
+
+  UpdatePatientScreen({required this.patientId});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +20,12 @@ class UpdatePatientScreen extends StatelessWidget {
       {
         if(state is DoctorUpdatePatientSuccess )
         {
-          Navigator.push(context,
+          Navigator.pushReplacement(context,
               MaterialPageRoute(
                 builder: (context) => HomeScreen(),
               ));
         }
+
       },
       builder:(context,state)
       {
@@ -74,7 +79,8 @@ class UpdatePatientScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: ()
                     {
-                      cubit.UpdatePatient();
+                      cubit.UpdatePatient(patientId);
+                      print(patientId);
 
                     },
                     child: Material(

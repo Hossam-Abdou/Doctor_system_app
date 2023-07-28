@@ -1,5 +1,5 @@
 import 'package:doctor_system/screens/home_screen.dart';
-import 'package:doctor_system/system_cubit.dart';
+import 'package:doctor_system/blocs/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
