@@ -11,21 +11,21 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SystemCubit,SystemState>(
-      listener: (context,state) async {
-        if(state is DoctorAuthSuccess)
-        {
-          Navigator.pushReplacement(context, MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ));
+    return BlocConsumer<SystemCubit, SystemState>(
+      listener: (context, state) async {
+        if (state is DoctorAuthSuccess) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomeScreen(),
+              ));
           const snackBar = SnackBar(
             content: Text('Registered Successfully'),
             backgroundColor: Colors.green,
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
-        if(state is DoctorAuthError)
-        {
+        if (state is DoctorAuthError) {
           const snackBar = SnackBar(
             content: Text('Error'),
             backgroundColor: Colors.red,
@@ -33,60 +33,61 @@ class RegisterScreen extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         }
       },
-        builder: (context,state)
-       {
-         var cubit=SystemCubit.get(context);
-         return Container(
-           decoration:const BoxDecoration(
-             gradient: LinearGradient(
-               begin: Alignment.bottomLeft,
-               end: Alignment.topRight,
-               colors: [Colors.blueGrey, Colors.lightBlueAccent],
-             ),
-           ),
-           child: Scaffold(
-             backgroundColor: Colors.transparent,
-             appBar:AppBar(
+      builder: (context, state) {
+        var cubit = SystemCubit.get(context);
+        return Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [Colors.black54, Color(0xff92AFBDFF)],
+            ),
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: AppBar(
               title: Text('Register Now'),
             ),
             body: SingleChildScrollView(
               child: Column(
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                      child: Image.network('https://img.freepik.com/free-vector/medical-video-call-consultation-illustration_88138-415.jpg',width: double.infinity,)),
-
-                  CustomTextField(label: 'UserName',
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        'https://img.freepik.com/free-vector/medical-video-call-consultation-illustration_88138-415.jpg',
+                        width: double.infinity,
+                      )),
+                  CustomTextField(
+                    label: 'UserName',
                     controller: cubit.nameController,
                   ),
-
-                  CustomTextField(label: 'Email',
+                  CustomTextField(
+                    label: 'Email',
                     controller: cubit.emailController,
                   ),
-
-                  CustomTextField(label: 'Password',
+                  CustomTextField(
+                    label: 'Password',
                     controller: cubit.passwordController,
                     isPassword: true,
                   ),
-
-                  CustomTextField(label: 'Title',
+                  CustomTextField(
+                    label: 'Title',
                     controller: cubit.titleController,
                   ),
-
-                  CustomTextField(label: 'Address',
+                  CustomTextField(
+                    label: 'Address',
                     controller: cubit.addressController,
                   ),
-                  if(state is DoctorAuthLoading)
+                  if (state is DoctorAuthLoading)
                     const Padding(
-                      padding:  EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: LinearProgressIndicator(),
                     ),
                   Material(
-                    color: Colors.tealAccent,
+                    color:const Color(0xff7985ff),
                     borderRadius: BorderRadius.circular(50),
                     child: InkWell(
-                      onTap: ()
-                      {
+                      onTap: () {
                         cubit.Register();
                       },
                       borderRadius: BorderRadius.circular(50),
@@ -94,31 +95,37 @@ class RegisterScreen extends StatelessWidget {
                         width: 200,
                         height: 50,
                         alignment: Alignment.center,
-                        child: const Text('Register'),
+                        child: const Text('Register',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                       ),
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Have An Account?',style: TextStyle(color: Colors.white),),
+                      const Text(
+                        'Have An Account?',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       TextButton(
-                          onPressed: ()
-                          {
-                            Navigator.pushReplacement(context, MaterialPageRoute(
-                              builder: (context) => LoginScreen(),
-                            ));
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginScreen(),
+                                ));
                           },
-                          child: const Text('Login Now',style: TextStyle(color: Colors.white),)
-                      )
+                          child: const Text(
+                            'Login Now',
+                            style: TextStyle(color: Colors.white),
+                          ))
                     ],
                   )
                 ],
               ),
             ),
-        ),
-         );
-       },
+          ),
+        );
+      },
     );
   }
 }

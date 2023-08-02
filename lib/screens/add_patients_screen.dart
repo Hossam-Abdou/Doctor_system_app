@@ -3,7 +3,7 @@ import 'package:doctor_system/blocs/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../components/custom_textfield.dart';
+import '../components/second_custom_textfield.dart';
 
 class AddPatients extends StatelessWidget {
   const AddPatients({Key? key}) : super(key: key);
@@ -13,7 +13,7 @@ class AddPatients extends StatelessWidget {
     return BlocConsumer<SystemCubit,SystemState>(
       listener: (context,state)
       {
-        if(state is DoctorAddPatientSuccess )
+        if(state is DoctorAddPatientSuccess)
         {
           Navigator.pushReplacement(
               context,
@@ -46,21 +46,21 @@ class AddPatients extends StatelessWidget {
                         ),
                       ),
                     ),
-                    CustomTextField(label: 'Patient name',
+                    SecondCustomTextField(label: 'Patient name',
                       controller: cubit.nameController,
                     ),
 
-                    CustomTextField(label: 'Date of Birth',
+                    SecondCustomTextField(label: 'Date of Birth',
                       controller: cubit.birthController,
                     ),
 
-                    CustomTextField(label: 'Diagnoses',
+                    SecondCustomTextField(label: 'Diagnoses',
                       controller: cubit.diagnosisController,
                     ),
-                    CustomTextField(label: 'Address',
+                    SecondCustomTextField(label: 'Address',
                       controller: cubit.addressController,
                     ),
-                    CustomTextField(label: 'Visit time',
+                    SecondCustomTextField(label: 'Visit time',
                       controller: cubit.visitController,
                     ),
 
@@ -76,13 +76,13 @@ class AddPatients extends StatelessWidget {
                         cubit.AddPatient();
                       },
                       child: Material(
-                        color: Colors.tealAccent,
+                        color: Color(0xff7985ff),
                         borderRadius: BorderRadius.circular(50),
                         child: Container(
                           width: 200,
                           height: 50,
                           alignment: Alignment.center,
-                          child: const Text('Add Patient'),
+                          child: const Text('Add Patient',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                         ),
                       ),
                     ),

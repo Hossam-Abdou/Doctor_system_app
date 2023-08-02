@@ -19,7 +19,10 @@ class DioHelper {
   })
   async {
 
-    return await dio!.get(url,queryParameters:query );
+    return await dio!.get(
+        url,
+        queryParameters:query
+    );
 
   }
   static Future<Response> postData({

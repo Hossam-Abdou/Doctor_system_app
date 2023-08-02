@@ -20,13 +20,16 @@ class CustomTextField extends StatelessWidget {
       child: Column(
         children: [
           TextFormField(
-            cursorColor: Colors.grey.shade600,
+            cursorColor: Colors.deepPurpleAccent,
             controller: controller,
             obscureText: isPassword,
+            style: TextStyle(color: Colors.white),
             decoration:  InputDecoration(
               border: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade700)),
-              label: Text('$label',style: TextStyle(color: Colors.black54),),
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.deepPurpleAccent.shade100)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)) ,
+              hintText: '$label',
+              hintStyle:  TextStyle(color: Colors.white70,fontSize:15)
             ),
           ),
         ],

@@ -28,101 +28,112 @@ class PatientDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    color: Color(0xff1B6B93),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                      color: Color(0xffc4caf6),
+                    ),
                     margin: EdgeInsets.all(10),
                     padding: EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const CircleAvatar(
-                          radius: 40,
-                          backgroundColor: Color(0xff764abc),
-                          backgroundImage: NetworkImage(
-                              'https://static.vecteezy.com/system/resources/thumbnails/002/127/142/small/medicine-and-healthcare-concept-illustration-health-examination-patient-consultation-can-use-for-web-homepage-mobile-apps-web-banner-character-cartoon-illustration-flat-style-free-vector.jpg'),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              patient.name!,
-                              style: const TextStyle(
-                                  fontSize: 24, color: Colors.white),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const CircleAvatar(
+                            radius: 49,
+                            backgroundColor: Colors.black,
+                            child:  CircleAvatar(
+                              radius: 45,
+                              backgroundImage: NetworkImage(
+                                  'https://static.vecteezy.com/system/resources/thumbnails/002/127/142/small/medicine-and-healthcare-concept-illustration-health-examination-patient-consultation-can-use-for-web-homepage-mobile-apps-web-banner-character-cartoon-illustration-flat-style-free-vector.jpg'),
                             ),
-                            const SizedBox(height: 8.0),
-                            Text(
+                          ),
+                          Text(
+                            patient.name!,
+                            style: const TextStyle(
+                                fontSize: 24, color: Colors.black,fontWeight: FontWeight.bold),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Text(
                               patient.diagnosis!,
                               style: const TextStyle(
-                                  fontSize: 18, color: Colors.white),
+                                  fontSize: 17, color: Colors.black,fontStyle: FontStyle.italic),
                             ),
-                          ],
-                        ),
-                      ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  const Text(
-                    'Date of Birth:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    patient.dateOfBirth!,
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Address:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    patient.address!,
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Visit Time:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    patient.visitTime!,
-                    style: const TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  Material(
-                    color: Colors.tealAccent,
-                    borderRadius: BorderRadius.circular(45),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    UpdatePatientScreen(
-                                      patientId: patient.id!,
+                  Center(
+                    child: Column(
+                      children: [
 
-                                    )
-                            )
-                        );
-                      },
-                      borderRadius: BorderRadius.circular(50),
-                      child: Container(
-                        width: 160,
-                        height: 50,
-                        alignment: Alignment.center,
-                        child: const Text('Update Patient'),
+                      const Text(
+                        'Date of Birth:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        patient.dateOfBirth!,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      const Text(
+                        'Address:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        patient.address!,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 16.0),
+                      const Text(
+                        'Visit Time:',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        patient.visitTime!,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],),
+                  ),
+                  SizedBox(height: 50,),
+                  Center(
+                    child: Material(
+                      color: Color(0xff7985ff),
+                      borderRadius: BorderRadius.circular(45),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      UpdatePatientScreen(
+                                        patientId: patient.id!,
+                                      ))
+                          );},
+                        borderRadius: BorderRadius.circular(50),
+                        child: Container(
+                          width: 190,
+                          height: 50,
+                          alignment: Alignment.center,
+                          child: const Text('Update Patient',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                        ),
                       ),
                     ),
                   ),

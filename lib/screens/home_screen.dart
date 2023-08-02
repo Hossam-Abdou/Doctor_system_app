@@ -12,6 +12,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   void initState() {
     SystemCubit.get(context).GetAllPatient();
@@ -25,9 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
         {
           var cubit=SystemCubit.get(context);
           return Scaffold(
+            backgroundColor: Colors.grey.shade200,
             appBar: AppBar(
               title: const Text('P a t i e n t s'),
               centerTitle: true,
+
               actions: [
                 IconButton(onPressed: ()
                 {
@@ -52,8 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ));
                 },
                 child:  Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 6.0),
                   child: Card(
+                    color: Colors.white,
+                    shape: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      borderSide: BorderSide(color: Colors.white)
+                    ),
                     child: ListTile(
                       leading: const CircleAvatar(
                         radius: 45,
@@ -61,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         backgroundImage:NetworkImage('https://static.vecteezy.com/system/resources/thumbnails/002/127/142/small/medicine-and-healthcare-concept-illustration-health-examination-patient-consultation-can-use-for-web-homepage-mobile-apps-web-banner-character-cartoon-illustration-flat-style-free-vector.jpg'),
                       ),
                       title: Text(cubit.getPatientModel!.data!.data![index].name!),
-                      subtitle: Text(cubit.getPatientModel!.data!.data![index].diagnosis!),
+                      subtitle: Text(cubit.getPatientModel!.data!.data![index].diagnosis!,style: TextStyle(fontStyle: FontStyle.italic)),
                       trailing:
                           IconButton(
                             onPressed: ()
@@ -79,15 +87,17 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-            floatingActionButton: FloatingActionButton(
-
-
-              onPressed: ()
-              {
-                Navigator.push(context,MaterialPageRoute(
-                  builder: (context) => const AddPatients(), ));
-              },
-              child:const Icon(Icons.person_add) ,
+            floatingActionButton: SizedBox(
+              width: 52,height: 75,
+              child: FloatingActionButton(
+                onPressed: ()
+                {
+                 cubit.ClearField();
+                  Navigator.push(context,MaterialPageRoute(
+                    builder: (context) => const AddPatients(), ));
+                },
+                child:const Icon(Icons.person_add) ,
+              ),
             ),
           );
         },

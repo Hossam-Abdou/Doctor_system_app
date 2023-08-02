@@ -1,10 +1,9 @@
-import 'package:doctor_system/model/get_patient_model.dart';
 import 'package:doctor_system/screens/home_screen.dart';
 import 'package:doctor_system/blocs/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../components/custom_textfield.dart';
+import '../components/second_custom_textfield.dart';
 
 class UpdatePatientScreen extends StatelessWidget {
 
@@ -52,21 +51,21 @@ class UpdatePatientScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  CustomTextField(label: 'Patient name',
+                  SecondCustomTextField(label: 'Patient name',
                     controller: cubit.nameController,
                   ),
 
-                  CustomTextField(label: 'Date of Birth',
+                  SecondCustomTextField(label: 'Date of Birth',
                     controller: cubit.birthController,
                   ),
 
-                  CustomTextField(label: 'Diagnoses',
+                  SecondCustomTextField(label: 'Diagnoses',
                     controller: cubit.diagnosisController,
                   ),
-                  CustomTextField(label: 'Address',
+                  SecondCustomTextField(label: 'Address',
                     controller: cubit.addressController,
                   ),
-                  CustomTextField(label: 'Visit time',
+                  SecondCustomTextField(label: 'Visit time',
                     controller: cubit.visitController,
                   ),
 
@@ -84,13 +83,13 @@ class UpdatePatientScreen extends StatelessWidget {
 
                     },
                     child: Material(
-                      color: Colors.tealAccent,
+                      color: Color(0xff7985ff),
                       borderRadius: BorderRadius.circular(50),
                       child: Container(
                         width: 200,
                         height: 50,
                         alignment: Alignment.center,
-                        child: const Text('Update'),
+                        child: const Text('Update',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                       ),
                     ),
                   ),

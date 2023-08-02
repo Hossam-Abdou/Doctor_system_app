@@ -15,6 +15,8 @@ class AppRoot extends StatelessWidget {
         ],
     child:  MaterialApp(
       theme: ThemeData(
+        appBarTheme: AppBarTheme(color: Color(0xff7985ff)),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(backgroundColor:Color(0xff7985ff) ),
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)
       ),
       debugShowCheckedModeBanner: false,

@@ -31,9 +31,6 @@ class SystemCubit extends Cubit<SystemState> {
   AuthModel? authentication;
   GetPatientModel? getPatientModel;
 
-
-
-
   Login() {
     emit(DoctorAuthLoading());
     DioHelper.postData(url: 'auth/login', data: {
@@ -70,12 +67,13 @@ class SystemCubit extends Cubit<SystemState> {
       }
       SharedPrefrenceHelper.saveData(
           key: SharedPreferencesKeys.token,
-          value: authentication!.token);
-      passwordController.text='';
-      emailController.text='';
-      nameController.text='';
-      titleController.text ='';
-      addressController.text='';
+          value: authentication!.token
+      );
+          passwordController.text='';
+          emailController.text='';
+          nameController.text='';
+          titleController.text ='';
+          addressController.text='';
       print(authentication!.token);
     }).catchError((error) {
       emit(DoctorAuthError());
@@ -133,8 +131,7 @@ class SystemCubit extends Cubit<SystemState> {
     DioHelper.getData(
         url: 'doctorpatients', // endpoint
         query: {
-          "token":
-              SharedPrefrenceHelper.getData(key: SharedPreferencesKeys.token)
+          "token": SharedPrefrenceHelper.getData(key: SharedPreferencesKeys.token)
         }).then((value) {
       emit(DoctorGetAllPatientSuccess());
       getPatientModel = GetPatientModel.fromJson(value.data);
@@ -144,11 +141,35 @@ class SystemCubit extends Cubit<SystemState> {
   }
 
   void getOnePatient(Patient patient) {
-    nameController.text = patient.name!;
-    visitController.text = patient.visitTime!;
-    birthController.text = patient.dateOfBirth!;
-    addressController.text = patient.address!;
+    nameController.text      = patient.name!;
+    visitController.text     = patient.visitTime!;
+    birthController.text     = patient.dateOfBirth!;
+    addressController.text   = patient.address!;
     diagnosisController.text = patient.diagnosis!;
+  }
+
+  deletePatient(int id) {
+    emit(DoctorDeletePatientLoading());
+    DioHelper.deleteData(
+        url: 'doctorpatients/$id',
+        token:
+        SharedPrefrenceHelper.getData(key: SharedPreferencesKeys.token))
+        .then((value) {
+      print(value.data);
+      emit(DoctorDeletePatientSuccess());
+    }).catchError((error) {
+      print(error);
+      emit(DoctorDeletePatientError());
+    });
+  }
+
+  ClearField()
+  {
+    nameController.clear();
+    visitController.clear();
+    birthController.clear();
+    addressController.clear();
+    diagnosisController.clear();
   }
 
   // delete
@@ -169,21 +190,6 @@ class SystemCubit extends Cubit<SystemState> {
   //   }
   // }
 
-  deletePatient(int id) {
-    emit(DoctorDeletePatientLoading());
-
-    DioHelper.deleteData(
-            url: 'doctorpatients/$id',
-            token:
-                SharedPrefrenceHelper.getData(key: SharedPreferencesKeys.token))
-        .then((value) {
-      print(value.data);
-      emit(DoctorDeletePatientSuccess());
-    }).catchError((error) {
-      print(error);
-      emit(DoctorDeletePatientError());
-    });
-  }
 
 // email: hossamabdou@gmail.com
 // password: 1234567

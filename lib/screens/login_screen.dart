@@ -13,6 +13,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
    return BlocConsumer <SystemCubit,SystemState>(
       listener: (context,state) async{
 
@@ -41,12 +42,12 @@ class LoginScreen extends StatelessWidget {
         var cubit=SystemCubit.get(context);
         return Container(
           decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.bottomLeft,
-            end: Alignment.topRight,
-            colors: [Colors.blueGrey, Colors.lightBlueAccent],
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [Colors.black54, Color(0xff92AFBDFF)],
+            ),
           ),
-        ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
               appBar:AppBar(
@@ -56,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     ClipRRect(borderRadius: BorderRadius.circular(20),
-                        child: Image.network('https://img.freepik.com/free-vector/thank-you-doctors-nurses_52683-36502.jpg')),
+                        child: Image.network('https://img.freepik.com/free-vector/thank-you-doctors-nurses_52683-36502.jpg',)),
                     CustomTextField(label: 'Email',
                       controller: cubit.emailController,
                     ),
@@ -69,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                         child: LinearProgressIndicator(),
                       ),
                     Material(
-                      color: Colors.tealAccent,
+                      color:const Color(0xff7985ff),
                       borderRadius: BorderRadius.circular(50),
                       child: InkWell(
                         onTap: ()
@@ -81,7 +82,7 @@ class LoginScreen extends StatelessWidget {
                           width: 200,
                           height: 50,
                           alignment: Alignment.center,
-                          child: Text('Login',),
+                          child: Text('Login',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
                         ),
                       ),
                     ),
