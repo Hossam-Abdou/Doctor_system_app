@@ -1,6 +1,5 @@
-part of 'system_cubit.dart';
 
-@immutable
+
 abstract class SystemState {}
 
 class SystemInitial extends SystemState {}

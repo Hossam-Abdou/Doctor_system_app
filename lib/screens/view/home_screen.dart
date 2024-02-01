@@ -1,7 +1,10 @@
-import 'package:doctor_system/screens/patient_details_screen.dart';
-import 'package:doctor_system/blocs/system_cubit.dart';
+import 'package:doctor_system/screens/view_model/system_cubit.dart';
+import 'package:doctor_system/screens/view/patient_details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../service/sp_helper/sp_helper.dart';
+import '../../service/sp_helper/sp_keys.dart';
+import '../view_model/system_state.dart';
 import 'add_patients_screen.dart';
 import 'login_screen.dart';
 
@@ -28,17 +31,39 @@ class _HomeScreenState extends State<HomeScreen> {
           return Scaffold(
             backgroundColor: Colors.grey.shade200,
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               title: const Text('P a t i e n t s'),
               centerTitle: true,
 
               actions: [
-                IconButton(onPressed: ()
-                {
-                  Navigator.pushReplacement(context, MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
-                  ));
-                  },
-                    icon: Icon(Icons.exit_to_app))
+                PopupMenuButton(
+                  color: Colors.black54,
+                  position:PopupMenuPosition.under,
+                  offset: Offset(0, 5),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+
+                  icon:const Icon(
+                    Icons.menu,
+                    color: Colors.white54,
+                  ),
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      PopupMenuItem(
+                        value: 'option2',
+                        child:IconButton(onPressed: ()
+                        {
+                          SharedPrefrenceHelper.removeData(
+                            key: SharedPreferencesKeys.token,
+                          );
+                          cubit.clearField();
+                          Navigator.pushReplacement(context, MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ));
+                        },
+                            icon: Icon(Icons.exit_to_app)),
+                      ),
+                      // Add more menu items as needed
+                    ];},),
               ],
             ),
             body: cubit.getPatientModel==null?
@@ -92,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: FloatingActionButton(
                 onPressed: ()
                 {
-                 cubit.ClearField();
+                 cubit.clearField();
                   Navigator.push(context,MaterialPageRoute(
                     builder: (context) => const AddPatients(), ));
                 },

@@ -1,9 +1,11 @@
-import 'package:doctor_system/screens/update_patient_screen.dart';
+import 'package:doctor_system/screens/view/update_patient_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../model/get_patient_model.dart';
-import '../blocs/system_cubit.dart';
+import '../view_model/system_cubit.dart';
+import '../view_model/system_state.dart';
+
 
 class PatientDetails extends StatelessWidget {
   final Patient patient;

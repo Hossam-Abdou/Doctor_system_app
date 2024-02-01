@@ -36,6 +36,7 @@ class DioHelper {
 
       'content-type':'application/json',
 
+
     };
     return dio!.post(url, queryParameters: query, data: data);
   }

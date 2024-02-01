@@ -1,10 +1,14 @@
-import 'package:doctor_system/screens/register_screen.dart';
-import 'package:doctor_system/blocs/system_cubit.dart';
+
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:doctor_system/screens/view_model/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRoot extends StatelessWidget {
+final Widget startWidget;
 
+
+AppRoot({required this.startWidget});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,15 @@ class AppRoot extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.blueGrey)
       ),
       debugShowCheckedModeBanner: false,
-        home: RegisterScreen()
+        home: AnimatedSplashScreen(
+          splash:Image(image: AssetImage('images/doklinic.png')),
+          duration: 2000,
+          nextScreen:startWidget,
+          backgroundColor: Colors.white,
+          splashTransition: SplashTransition.slideTransition,
+          curve: Curves.bounceIn,
+
+        ),
     )
     );
   }

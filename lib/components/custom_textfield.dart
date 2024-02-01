@@ -23,13 +23,13 @@ class CustomTextField extends StatelessWidget {
             cursorColor: Colors.deepPurpleAccent,
             controller: controller,
             obscureText: isPassword,
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.black),
             decoration:  InputDecoration(
               border: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.deepPurpleAccent.shade100)),
-              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)) ,
+              focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.deepPurpleAccent)),
+              enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.black)) ,
               hintText: '$label',
-              hintStyle:  TextStyle(color: Colors.white70,fontSize:15)
+              hintStyle:  TextStyle(color: Colors.black54,fontSize:15)
             ),
           ),
         ],

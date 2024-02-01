@@ -1,9 +1,9 @@
-import 'package:doctor_system/screens/home_screen.dart';
-import 'package:doctor_system/blocs/system_cubit.dart';
+import 'package:doctor_system/screens/view_model/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../components/second_custom_textfield.dart';
+import '../../components/second_custom_textfield.dart';
+import '../view_model/system_state.dart';
+import 'home_screen.dart';
 
 class UpdatePatientScreen extends StatelessWidget {
 
@@ -62,7 +62,8 @@ class UpdatePatientScreen extends StatelessWidget {
                   SecondCustomTextField(label: 'Diagnoses',
                     controller: cubit.diagnosisController,
                   ),
-                  SecondCustomTextField(label: 'Address',
+                  SecondCustomTextField(
+                    label: 'Address',
                     controller: cubit.addressController,
                   ),
                   SecondCustomTextField(label: 'Visit time',

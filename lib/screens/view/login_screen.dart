@@ -1,12 +1,14 @@
 import 'package:doctor_system/components/custom_textfield.dart';
-import 'package:doctor_system/screens/home_screen.dart';
-import 'package:doctor_system/screens/register_screen.dart';
-import 'package:doctor_system/blocs/system_cubit.dart';
+import 'package:doctor_system/screens/view_model/system_cubit.dart';
+import 'package:doctor_system/screens/view/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../service/sp_helper/sp_helper.dart';
-import '../service/sp_helper/sp_keys.dart';
+import '../../service/sp_helper/sp_helper.dart';
+import '../../service/sp_helper/sp_keys.dart';
+import '../view_model/system_state.dart';
+import 'home_screen.dart';
+
 
 class LoginScreen extends StatelessWidget {
    LoginScreen({Key? key}) : super(key: key);
@@ -19,9 +21,14 @@ class LoginScreen extends StatelessWidget {
 
       if(state is DoctorAuthSuccess)
         {
-          Navigator.pushReplacement(context, MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ));
+          SharedPrefrenceHelper.saveData(key: SharedPreferencesKeys.token, value:SystemCubit.get(context).authentication!.token).then(
+                  (value)
+          {
+            Navigator.pushReplacement(context, MaterialPageRoute(
+              builder: (context) => HomeScreen(),
+            ));
+          });
+
           const snackBar = SnackBar(
             content: Text('Login Successfully'),
             backgroundColor: Colors.green,
@@ -43,15 +50,17 @@ class LoginScreen extends StatelessWidget {
         return Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              colors: [Colors.black54, Color(0xff92AFBDFF)],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [Colors.white, Color(0xff92AFBDFF)],
             ),
           ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
               appBar:AppBar(
                 title: Text('Doctor App'),
+                automaticallyImplyLeading: false,
+                centerTitle: true,
               ),
               body:SingleChildScrollView(
                 child: Column(
@@ -75,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                       child: InkWell(
                         onTap: ()
                         {
-                          cubit.Login();
+                          cubit.login();
                         },
                         borderRadius: BorderRadius.circular(50),
                         child: Container(
@@ -89,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Don\'t Have An Account',style: TextStyle(color: Colors.white),),
+                        Text('Don\'t Have An Account',style: TextStyle(color: Colors.black54),),
                         TextButton(
                             onPressed: ()
                             {
@@ -97,7 +106,7 @@ class LoginScreen extends StatelessWidget {
                                 builder: (context) => RegisterScreen(),
                               ));
                             },
-                            child: const Text('Register Now',style: TextStyle(color: Colors.white),)
+                            child: const Text('Register Now',style: TextStyle(color: Colors.black),)
                         )
                       ],
                     )

@@ -1,10 +1,11 @@
-import 'package:doctor_system/screens/login_screen.dart';
-import 'package:doctor_system/blocs/system_cubit.dart';
+import 'package:doctor_system/screens/view_model/system_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../components/custom_textfield.dart';
+import '../../components/custom_textfield.dart';
+import '../view_model/system_state.dart';
 import 'home_screen.dart';
+import 'login_screen.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -38,15 +39,17 @@ class RegisterScreen extends StatelessWidget {
         return Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              begin: Alignment.bottomLeft,
-              end: Alignment.topRight,
-              colors: [Colors.black54, Color(0xff92AFBDFF)],
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [Colors.white, Color(0xff92AFBDFF)],
             ),
           ),
           child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
               title: Text('Register Now'),
+              automaticallyImplyLeading: false,
+              centerTitle: true,
             ),
             body: SingleChildScrollView(
               child: Column(
@@ -88,7 +91,7 @@ class RegisterScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(50),
                     child: InkWell(
                       onTap: () {
-                        cubit.Register();
+                        cubit.register();
                       },
                       borderRadius: BorderRadius.circular(50),
                       child: Container(
@@ -104,7 +107,7 @@ class RegisterScreen extends StatelessWidget {
                     children: [
                       const Text(
                         'Have An Account?',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black54),
                       ),
                       TextButton(
                           onPressed: () {
@@ -116,7 +119,7 @@ class RegisterScreen extends StatelessWidget {
                           },
                           child: const Text(
                             'Login Now',
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.black),
                           ))
                     ],
                   )

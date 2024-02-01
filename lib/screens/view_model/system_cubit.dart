@@ -1,18 +1,14 @@
 import 'package:bloc/bloc.dart';
-import 'package:dio/dio.dart';
-import 'package:doctor_system/screens/home_screen.dart';
-import 'package:doctor_system/screens/update_patient_screen.dart';
+import 'package:doctor_system/screens/view_model/system_state.dart';
 import 'package:doctor_system/service/dio_helper/dio_helper.dart';
 import 'package:doctor_system/service/sp_helper/sp_helper.dart';
 import 'package:doctor_system/service/sp_helper/sp_keys.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:meta/meta.dart';
 
 import '../model/auth_model.dart';
 import '../model/get_patient_model.dart';
 
-part 'system_state.dart';
 
 class SystemCubit extends Cubit<SystemState> {
   SystemCubit() : super(SystemInitial());
@@ -31,7 +27,7 @@ class SystemCubit extends Cubit<SystemState> {
   AuthModel? authentication;
   GetPatientModel? getPatientModel;
 
-  Login() {
+  login() {
     emit(DoctorAuthLoading());
     DioHelper.postData(url: 'auth/login', data: {
       "email": emailController.text,
@@ -52,7 +48,7 @@ class SystemCubit extends Cubit<SystemState> {
     });
   }
 
-  Register() {
+  register() {
     emit(DoctorAuthLoading());
     DioHelper.postData(url: 'auth/register', data: {
       "name": nameController.text,
@@ -129,7 +125,7 @@ class SystemCubit extends Cubit<SystemState> {
   GetAllPatient() {
     emit(DoctorGetAllPatientLoading());
     DioHelper.getData(
-        url: 'doctorpatients', // endpoint
+        url: 'doctorpatients',
         query: {
           "token": SharedPrefrenceHelper.getData(key: SharedPreferencesKeys.token)
         }).then((value) {
@@ -152,8 +148,7 @@ class SystemCubit extends Cubit<SystemState> {
     emit(DoctorDeletePatientLoading());
     DioHelper.deleteData(
         url: 'doctorpatients/$id',
-        token:
-        SharedPrefrenceHelper.getData(key: SharedPreferencesKeys.token))
+        token: SharedPrefrenceHelper.getData(key: SharedPreferencesKeys.token))
         .then((value) {
       print(value.data);
       emit(DoctorDeletePatientSuccess());
@@ -163,7 +158,7 @@ class SystemCubit extends Cubit<SystemState> {
     });
   }
 
-  ClearField()
+  clearField()
   {
     nameController.clear();
     visitController.clear();
